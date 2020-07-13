@@ -102,7 +102,7 @@ router.post("/", async (req, res, next) => {
     // console.log(query);
     //run the query
     db.tx((t) => {
-      const eventQuery = `insert into applications (organizer_name,organizer_website_url,event_name,event_description,event_date,event_region,event_state,event_type,event_status,organizer_phone_number) values('${organizer_name}','${organizer_website_url}','${event_name}','${event_description}','${event_date}','${event_region}','${event_state}','${event_type}','${event_status}','${organizer_phone_number}') returning id`;
+      const eventQuery = `insert into applications (organizer_name,organizer_website_url,organizer_phone_number,event_name,event_description,event_date,event_region,event_state,event_type,event_status) values('${organizer_name}','${organizer_website_url}','${organizer_phone_number}','${event_name}','${event_description}','${event_date}','${event_region}','${event_state}','${event_type}','${event_status}') returning id`;
       return t.one(eventQuery).then((event) => {
         console.log(event);
       });
