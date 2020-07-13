@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db-init/dbConn");
-const validateUser = require("../../db-init/validation").validateUser;
-const sendOTP = require("../../middlewares/sendOTP").sendOTP;
-const bcrypt = require("bcrypt");
-const generateToken = require("../../middlewares/token").generateToken;
-const getDate = require("../../middlewares/getDate").getDate;
+// const validateUser = require("../../db-init/validation").validateUser;
+// const sendOTP = require("../../middlewares/sendOTP").sendOTP;
+// const bcrypt = require("bcrypt");
+// const generateToken = require("../../middlewares/token").generateToken;
 
 /*
     @route to get all events
