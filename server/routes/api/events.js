@@ -8,15 +8,15 @@ const generateToken = require("../../middlewares/token").generateToken;
 
 /*
     @route to get all events
-    @required id (event id) 
+    @required event_id (event id) 
     @required event_status (event status)
 */
-router.get("/:id", async (req, res, next) => {
+router.get("/:event_id", async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { event_id } = req.params;
     const { event_status } = req.body;
     let allEvents = await db.any(
-      `select * from events where id = ${id} AND event_status ='${event_status}'`
+      `select * from events where event_id = ${event_id} AND event_status ='${event_status}'`
     );
     if (allEvents.length === 0) {
       // sends response code of 400 with an error message
@@ -39,12 +39,14 @@ router.get("/:id", async (req, res, next) => {
 
 /*
     @route to get all events created by user
-    @required id (event id) 
+    @required user_id (user id)
 */
-router.get("/user/:id", async (req, res, next) => {
+router.get("/user/:user_id", async (req, res, next) => {
   try {
-    const { id } = req.params;
-    let userEvents = await db.any(`select * from events where user_id = ${id}`);
+    const { user_id } = req.params;
+    let userEvents = await db.any(
+      `select * from events where user_id = ${user_id}`
+    );
     if (userEvents.length === 0) {
       // sends response code of 400 with an error message
       res.status(400).json({
