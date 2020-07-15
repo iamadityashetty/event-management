@@ -1,7 +1,7 @@
 // supertest is a library that allows you to do an integration test and is built on mocha
 const request = require("supertest");
 // index.js imports express which routes the get requests later to the right .js files
-const app = require("../../index");
+const app = require("../../../index");
 let id;
 
 describe("Test the GET APIs for processing", () => {
