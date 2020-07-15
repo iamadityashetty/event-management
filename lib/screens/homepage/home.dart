@@ -1,3 +1,4 @@
+import 'package:event_management/reusableComponents/event_card.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,7 +12,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          child: Text("Homepage"),
+          child: EventCard(),
         ),
       ),
     );
