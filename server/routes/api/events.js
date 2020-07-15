@@ -55,7 +55,7 @@ router.get("/user/:id", async (req, res, next) => {
       // sends a 200 status code with a successs message
       res.status(200).json({
         status: 200,
-        message: "All events retrieved successfully",
+        message: "All user events retrieved successfully",
         data: userEvents[0],
       });
     }
