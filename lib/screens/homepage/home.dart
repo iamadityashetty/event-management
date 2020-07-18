@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../reusableComponents/text_input.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,7 +12,10 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          child: Text("Homepage"),
+          child: TextInput(
+            placeholder: "Phone Number",
+            icon: Icon(Icons.phone),
+          ),
         ),
       ),
     );
