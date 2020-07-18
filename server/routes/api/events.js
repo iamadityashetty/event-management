@@ -68,25 +68,30 @@ router.get("/user/:user_id", async (req, res, next) => {
 
 /*
    @route to create a new event
+   @reuired event_id (event id)
    @required organizer_name (organizer name)
    @required organizer_phone_number (organizer phone number)
-   @required organizer_website_url (organizer website url)
+   @required organizer_website (organizer website url)
    @required event_name (event name)
    @required event_description (event description)
+   @required event_website (event website)
    @required event_date (event date)
-   @required event_region (event region)
-   @required event_state (event state)
-   @required event_type (event type)
-   @required event_status (event status)
+   @required event_region_id (event region id)
+   @required event_state_id (event state id)
+   @required event_type_id (event type id)
+   @required event_status_id (event status id)
  */
 router.post("/", async (req, res, next) => {
   try {
     const {
       organizer_name,
       organizer_phone_number,
-      organizer_website_url,
+      organizer_email,
+      organizer_website,
       event_name,
       event_description,
+      event_website,
+      event_location,
       event_date,
       event_region,
       event_state,
@@ -95,62 +100,58 @@ router.post("/", async (req, res, next) => {
     } = req.body;
     //Check if valid details are provided
     //If not, throw an error with appropriate message
-    if (
-      !organizer_name ||
-      !organizer_website_url ||
-      !event_name ||
-      !event_description ||
-      !event_date ||
-      !event_region ||
-      !event_state ||
-      !event_type ||
-      !event_status ||
-      (organizer_phone_number &&
-        organizer_phone_number.toString().length !== 10)
-    ) {
-      const statusCode = 400;
-      const customMessage = `All parameters are required.${
-        !organizer_name ? " Organizer name is required." : ""
-      }${!organizer_website_url ? " URL is missing." : ""}${
-        !organizer_phone_number ? " Phone number is missing." : ""
-      }${
-        organizer_phone_number &&
-        organizer_phone_number.toString().length !== 10
-          ? " Please enter a valid phone number."
-          : ""
-      }${!event_name ? " Event name is required." : ""}${
-        !event_description ? " Event description is required." : ""
-      }${!event_date ? " Event date is required." : ""}${
-        !event_region ? " Event region is required." : ""
-      }${!event_state ? " Event state is required." : ""}${
-        !event_type ? " Event type is required." : ""
-      }${!event_status ? " Event status is required." : ""}`;
-      throw {
-        statusCode,
-        customMessage,
-      };
-    }
+    // if (
+    //   !user_id ||
+    //   !organizer_name ||
+    //   !organizer_email ||
+    //   !organizer_website ||
+    //   !event_name ||
+    //   !event_description ||
+    //   event_website ||
+    //   !event_location ||
+    //   !event_date ||
+    //   !event_region ||
+    //   !event_state ||
+    //   !event_type ||
+    //   !event_status ||
+    //   (organizer_phone_number &&
+    //     organizer_phone_number.toString().length !== 10)
+    // ) {
+    //   const statusCode = 400;
+    //   const customMessage = `All parameters are required.${
+    //     !user_id ? " User id is missing." : ""
+    //   }${!organizer_name ? " Organizer name is required." : ""}${
+    //     !organizer_website ? " Organizer website URL is missing." : ""
+    //   }${!organizer_email ? " Organizer email is missing." : ""}${
+    //     !organizer_phone_number ? " Organizer phone number is missing." : ""
+    //   }${
+    //     organizer_phone_number &&
+    //     organizer_phone_number.toString().length !== 10
+    //       ? " Please enter a valid phone number."
+    //       : ""
+    //   }${!event_name ? " Event name is required." : ""}${
+    //     !event_description ? " Event description is required." : ""
+    //   }${!event_website ? " Event website URL is missing." : ""}${
+    //     !event_location ? " Event location is missing." : ""
+    //   }${!event_date ? " Event date is required." : ""}${
+    //     !event_region ? " Event region id is required." : ""
+    //   }${!event_state ? " Event state is required." : ""}${
+    //     !event_type ? " Event type is required." : ""
+    //   }${!event_status ? " Event status is required." : ""}`;
+    //   throw {
+    //     statusCode,
+    //     customMessage,
+    //   };
+    // }
 
-    //construct the query
-    // console.log(query);
-    //run the query
-    db.tx((t) => {
-      const eventQuery = `insert into applications (organizer_name,organizer_website_url,organizer_phone_number,event_name,event_description,event_date,event_region,event_state,event_type,event_status) values('${organizer_name}','${organizer_website_url}','${organizer_phone_number}','${event_name}','${event_description}','${event_date}','${event_region}','${event_state}','${event_type}','${event_status}') returning id`;
-      return t.one(eventQuery).then((event) => {
-        console.log(event);
-      });
-    })
-      .then((event) => {
-        res.status(200).json({
-          status: 200,
-          message: "New Event Created Successfully",
-          data: event,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        next(err);
-      });
+    const eventQuery = `insert into events (user_id,organizer_name,organizer_website,organizer_email,organizer_phone_number,event_name,event_description,event_website,event_location,event_date,event_region,event_state,event_type,event_status) values('${user_id}','${organizer_name}','${organizer_website}','${organizer_email}','${organizer_phone_number}','${event_name}','${event_description}','${event_website}','${event_location}','${event_date}','${event_region}','${event_state}','${event_type}','${event_status}') returning event_id`;
+    await db.any(eventQuery);
+
+    res.status(200).json({
+      status: 200,
+      message: "New Event Created Successfully",
+      data: eventQuery,
+    });
   } catch (err) {
     console.log(err);
     next(err);

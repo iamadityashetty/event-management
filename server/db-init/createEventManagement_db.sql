@@ -53,14 +53,15 @@ CREATE TABLE events
     event_type_id INT,
     event_date DATE,
     event_region_id INT,
+    event_state_id INT,
     event_website VARCHAR,
     event_status_id INT,
     organizer_name VARCHAR,
     organizer_email VARCHAR,
-    organizer_phone_number INT,
+    organizer_phone_number VARCHAR,
     organizer_website VARCHAR,
     user_id INT,
-    
+
     PRIMARY KEY(event_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (event_type_id) REFERENCES event_type(event_type_id),
@@ -92,9 +93,9 @@ CREATE TABLE states
 
 INSERT INTO events_status
     (event_status_id, event_status)
-VALUES 
-(1, 'Approved'),
- (2, 'Pending'),
- (3, 'Rejected');
+VALUES
+    (1, 'Approved'),
+    (2, 'Pending'),
+    (3, 'Rejected');
 
 
