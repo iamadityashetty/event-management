@@ -1,4 +1,4 @@
-// TextInput(
+// Header(
 // controller : controller,
 // placeholder : "placeholder",
 // icon : Icon(any icon)
@@ -6,9 +6,9 @@
 
 import 'package:flutter/material.dart';
 
-class TextInput extends StatelessWidget {
+class Header extends StatelessWidget {
   // declaring the parameters in component
-  TextInput({
+  Header({
     @required this.controller,
     @required this.placeholder,
     @required this.icon,
@@ -36,8 +36,8 @@ class TextInput extends StatelessWidget {
             hintText: placeholder,
             hintStyle: TextStyle(
               color: Color(0xFFBDC3C7),
-              fontFamily: 'WorkSans',
-              fontWeight: FontWeight.w500,
+              //   fontFamily: 'WorkSans',
+              //   fontWeight: FontWeight.w500,
               fontSize: screenWidth * 0.045,
             ),
             // contentPadding: EdgeInsets.symmetric(vertical: 0),

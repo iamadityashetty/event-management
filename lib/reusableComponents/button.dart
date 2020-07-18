@@ -45,8 +45,8 @@ class Button extends StatelessWidget {
                     style: TextStyle(
                       color: color != null ? color : Color(0xFF3498DB),
                       fontSize: screenWidth * 0.045,
-                      // fontFamily: 'WorkSans',
-                      // letterSpacing: 0.3,
+                      fontFamily: 'WorkSans',
+                      fontWeight: FontWeight.w500,
                     )),
                 onPressed: onClickFunction))
         : Container(
@@ -61,8 +61,8 @@ class Button extends StatelessWidget {
                     style: TextStyle(
                       color: Color(0xFFFFFFFF),
                       fontSize: screenWidth * 0.045,
-                      // fontFamily: 'WorkSans',
-                      // letterSpacing: 0.3,
+                      fontFamily: 'WorkSans',
+                      fontWeight: FontWeight.w500,
                     )),
                 onPressed: onClickFunction));
   }
