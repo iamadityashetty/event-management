@@ -81,8 +81,9 @@ router.get("/user/:user_id", async (req, res, next) => {
    @required event_type_id (event type id)
    @required event_status_id (event status id)
  */
-router.post("/", async (req, res, next) => {
+router.post("/:user_id", async (req, res, next) => {
   try {
+    const { user_id } = req.params;
     const {
       organizer_name,
       organizer_phone_number,
@@ -98,10 +99,19 @@ router.post("/", async (req, res, next) => {
       event_type,
       event_status,
     } = req.body;
+
+    if (!user_id) {
+      //Check if valid id is provided.
+      //If not, throw an error with appropriate message
+      throw {
+        statusCode: 400,
+        customMessage: "User id is required",
+      };
+    }
+
     //Check if valid details are provided
     //If not, throw an error with appropriate message
     // if (
-    //   !user_id ||
     //   !organizer_name ||
     //   !organizer_email ||
     //   !organizer_website ||
@@ -144,8 +154,24 @@ router.post("/", async (req, res, next) => {
     //   };
     // }
 
-    const eventQuery = `insert into events (user_id,organizer_name,organizer_website,organizer_email,organizer_phone_number,event_name,event_description,event_website,event_location,event_date,event_region,event_state,event_type,event_status) values('${user_id}','${organizer_name}','${organizer_website}','${organizer_email}','${organizer_phone_number}','${event_name}','${event_description}','${event_website}','${event_location}','${event_date}','${event_region}','${event_state}','${event_type}','${event_status}') returning event_id`;
-    await db.any(eventQuery);
+    const regionQuery = `select region_id from region where region_name = '${event_region}'`;
+    const regionId = await db.any(regionQuery);
+    console.log("REGION =>", regionId[0].region_id);
+
+    const stateQuery = `select state_id from states where state_name = '${event_state}'`;
+    const stateId = await db.any(stateQuery);
+    console.log("STATE =>", stateId[0].state_id);
+
+    const statusQuery = `select event_status_id from events_status where event_status = '${event_status}'`;
+    const statusId = await db.any(statusQuery);
+    console.log("STATUS =>", statusId[0].event_status_id);
+
+    const typeQuery = `select event_type_id from event_type where event_type = '${event_type}'`;
+    const typeId = await db.any(typeQuery);
+    console.log("TYPE =>", typeId[0].event_type_id);
+
+    const result = `insert into events (user_id,organizer_name,organizer_website,organizer_email,organizer_phone_number,event_name,event_description,event_website,event_location,event_date,event_region_id,event_state_id,event_type_id,event_status_id) values('${user_id}','${organizer_name}','${organizer_website}','${organizer_email}','${organizer_phone_number}','${event_name}','${event_description}','${event_website}','${event_location}','${event_date}','${regionId[0].region_id}','${stateId[0].state_id}','${typeId[0].event_type_id}','${statusId[0].event_status_id}') returning event_id`;
+    const eventQuery = await db.any(result);
 
     res.status(200).json({
       status: 200,

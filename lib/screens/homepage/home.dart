@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../reusableComponents/text_input.dart';
+import '../../reusableComponents/header.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,9 +12,10 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          child: TextInput(
-            placeholder: "Phone Number",
-            icon: Icon(Icons.phone),
+          child: Header(
+            title: 'Add Event',
+            description:
+                "Fill up the details to submit your event. You can see the status of submitted event in My Events section.",
           ),
         ),
       ),

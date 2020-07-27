@@ -1,7 +1,6 @@
 // Header(
-// controller : controller,
-// placeholder : "placeholder",
-// icon : Icon(any icon)
+// title : "screen title",
+// description : "screen description"
 // )
 
 import 'package:flutter/material.dart';
@@ -9,46 +8,49 @@ import 'package:flutter/material.dart';
 class Header extends StatelessWidget {
   // declaring the parameters in component
   Header({
-    @required this.controller,
-    @required this.placeholder,
-    @required this.icon,
+    @required this.title,
+    @required this.description,
   });
-  final TextEditingController controller;
-  final String placeholder;
-  final Icon icon;
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
     // To Get Device Size
     var screenSize = MediaQuery.of(context).size;
     var screenWidth = screenSize.width;
-    return Theme(
-      child: TextField(
-          style: TextStyle(
-            color: Color(0xFF333333),
-            //   fontFamily: 'WorkSans',
-            //   fontWeight: FontWeight.w500,
-            fontSize: screenWidth * 0.045,
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              width: 20,
+              child: Image(image: AssetImage('assets/images/back.png'))),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Color(0xFF333333),
+                  fontSize: 24,
+                  fontFamily: 'WorkSans',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ),
-          controller: controller,
-          cursorColor: Color(0xFF333333),
-          decoration: InputDecoration(
-            hintText: placeholder,
-            hintStyle: TextStyle(
-              color: Color(0xFFBDC3C7),
-              //   fontFamily: 'WorkSans',
-              //   fontWeight: FontWeight.w500,
-              fontSize: screenWidth * 0.045,
-            ),
-            // contentPadding: EdgeInsets.symmetric(vertical: 0),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF3498DB)),
-            ),
-            prefixIcon: icon,
-          )),
-      data: Theme.of(context).copyWith(
-        primaryColor: Color(0xFF3498DB),
-      ),
-    );
+          Align(
+              alignment: Alignment.center,
+              child: Text(description,
+                  style: TextStyle(
+                    color: Color(0xFF95A5A6),
+                    fontSize: 14,
+                    fontFamily: 'WorkSans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center)),
+        ]);
   }
 }
