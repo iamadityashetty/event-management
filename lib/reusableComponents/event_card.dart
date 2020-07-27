@@ -14,9 +14,9 @@ class _EventCardState extends State<EventCard> {
     final Widget calendar = SvgPicture.asset('images/calendar.svg');
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
       child: Container(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           height: 150,
           color: Colors.red,
           child: Column(

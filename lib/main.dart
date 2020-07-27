@@ -1,3 +1,4 @@
+import 'package:event_management/providers/events.dart';
 import 'package:event_management/screens/homepage/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class MainClass extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => Accounts()),
+          ChangeNotifierProvider(create: (_) => EventsProvider()),
         ],
         child: MaterialApp(
           home: MyApp(),
