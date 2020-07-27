@@ -61,10 +61,10 @@ CREATE TABLE events
     organizer_website VARCHAR,
     user_id INT,
     
-    PRIMARY KEY(event_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (event_type_id) REFERENCES event_type(event_type_id),
-    FOREIGN KEY (event_status_id) REFERENCES events_status(event_status_id)
+    PRIMARY KEY(event_id)
+    -- FOREIGN KEY (user_id) REFERENCES users(user_id),
+    -- FOREIGN KEY (event_type_id) REFERENCES event_type(event_type_id),
+    -- FOREIGN KEY (event_status_id) REFERENCES events_status(event_status_id)
 
 );
 
@@ -83,8 +83,8 @@ CREATE TABLE states
     state_id SERIAL,
     state_name VARCHAR,
     region_id INT,
-    PRIMARY KEY(state_id),
-    FOREIGN KEY (region_id) REFERENCES region(region_id)
+    PRIMARY KEY(state_id)
+    -- FOREIGN KEY (region_id) REFERENCES region(region_id)
 
 );
 
